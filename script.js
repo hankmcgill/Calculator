@@ -22,7 +22,7 @@ allClear.addEventListener("click", function () {
 });
 
 ///////////////////////////////////////////////////////////////
-/////////////// CALCULATOR FUNCTIONS //////////////////////////
+/////////////// CALCULATOR MATH OPERATIONS ////////////////////
 ///////////////////////////////////////////////////////////////
 
 function operate(firstInputValue, operator, secondInputValue) {
@@ -57,36 +57,47 @@ function getButtonValue(number) {
 }
 
 one.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(1);
 });
 two.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(2);
 });
 three.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(3);
 });
 four.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(4);
 });
 five.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(5);
 });
 six.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(6);
 });
 seven.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(7);
 });
 eight.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(8);
 });
 nine.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(9);
 });
 zero.addEventListener("click", function () {
+  checkForScreenText();
   getButtonValue(0);
 });
 decimal.addEventListener("click", function () {
+  checkForScreenText();
   if (displayStrip.innerHTML.includes(".")) {
     displayStrip.innerHTML = "DECLINED";
   } else if (displayStrip.innerHTML === 0) {
@@ -123,9 +134,11 @@ changePositive.addEventListener("click", function () {
 });
 
 memory.addEventListener("click", function () {
-  if (memoryValue !== 0) {
-    displayStrip.innerHTML += memoryValue;
-  } else memoryValue = displayStrip.innerHTML;
+  if (displayStrip.innerHTML == 0) {
+    displayStrip.innerHTML = Number(memoryValue);
+  } else if (memoryValue != 0) {
+    displayStrip.innerHTML += Number(memoryValue);
+  } else memoryValue = Number(displayStrip.innerHTML);
 });
 
 divide.addEventListener("click", function () {
@@ -159,12 +172,22 @@ exponent.addEventListener("click", function () {
   displayStrip.innerHTML = `${displayStrip.innerHTML} ^ `;
 });
 
+///////////////////////////////////////////////////////////////
+/////////////// USE "ENTER" BUTTON TO GET RESULTS//////////////
+///////////////////////////////////////////////////////////////
+
 enterButton.addEventListener("click", function () {
   secondInputValue = displayStrip.innerHTML.split(" ").pop();
+  checkForDivideByZero();
   if (firstInputValue === "" || operator === "" || secondInputValue === "") {
     displayStrip.innerHTML = "DECLINED";
   } else preRoundedValue = operate(firstInputValue, operator, secondInputValue);
   displayStrip.innerHTML = roundDecimal(preRoundedValue);
+  calcDisplay = "0";
+  firstInputValue = "";
+  secondInputValue = "";
+  operator = "";
+  preRoundedValue = "";
 });
 
 ///////////////////////////////////////////////////////////////
@@ -174,6 +197,7 @@ enterButton.addEventListener("click", function () {
 function checkForOperator() {
   if (operator !== "") {
     secondInputValue = displayStrip.innerHTML.split(" ").pop();
+    checkForDivideByZero();
     let newValue = operate(firstInputValue, operator, secondInputValue);
     operate();
     displayStrip.innerHTML = newValue;
@@ -191,4 +215,35 @@ function roundDecimal(inputNumber) {
   if (Number.isInteger(inputNumber)) {
     return inputNumber;
   } else return Number(inputNumber.toFixed(5));
+}
+
+///////////////////////////////////////////////////////////////
+///////////// CHECK FOR ERROR TEXT ONSCREEN  //////////////////
+///////////////////////////////////////////////////////////////
+
+function checkForScreenText() {
+  if (
+    displayStrip.innerHTML === "DECLINED" ||
+    displayStrip.innerHTML === "NaN" ||
+    displayStrip.innerHTML === "Infinity"
+  ) {
+    displayStrip.innerHTML = "";
+  }
+}
+
+///////////////////////////////////////////////////////////////
+///////////// CHECK FOR DOUBLE OPERATOR  //////////////////////
+///////////////////////////////////////////////////////////////
+
+function operatorCheck() {
+  if (operator != "") {
+    displayStrip.innerHTML = "DECLINED";
+  }
+}
+
+function checkForDivideByZero() {
+  if (operator === "divide" && secondInputValue === 0) {
+    displayStrip.innerHTML = "DECLINED";
+  }
+  console.log(firstInputValue, operator, secondInputValue);
 }
