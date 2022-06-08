@@ -1,21 +1,25 @@
 ///////////////////////////////////////////////////////////////
-/////////////// CALCULATOR STYLE //////////////////////////////
+/////////////// CALCULATOR INITIAL VALUES /////////////////////
 ///////////////////////////////////////////////////////////////
+
 let memoryValue = 0;
 let calcDisplay = "0";
-
-let firstInputValue;
-let secondInputValue;
-let operator;
-
-allClear.addEventListener("click", function () {
-  displayStrip.innerHTML = "0";
-  memoryValue = 0;
-});
+let firstInputValue = "";
+let secondInputValue = "";
+let operator = "";
+let preRoundedValue = "";
 
 let displayStrip = document.createElement("div");
 displayStrip.innerHTML = `${calcDisplay}`;
 document.getElementById("display").appendChild(displayStrip);
+
+allClear.addEventListener("click", function () {
+  displayStrip.innerHTML = "0";
+  memoryValue = 0;
+  firstInputValue = "";
+  secondInputValue = "";
+  operator = "";
+});
 
 ///////////////////////////////////////////////////////////////
 /////////////// CALCULATOR FUNCTIONS //////////////////////////
@@ -23,7 +27,7 @@ document.getElementById("display").appendChild(displayStrip);
 
 function operate(firstInputValue, operator, secondInputValue) {
   if (operator === "add") {
-    calcDisplay = firstInputValue + secondInputValue;
+    calcDisplay = Number(firstInputValue) + Number(secondInputValue);
   }
   if (operator === "subtract") {
     calcDisplay = firstInputValue - secondInputValue;
@@ -46,55 +50,41 @@ function operate(firstInputValue, operator, secondInputValue) {
 /////////////// GET NUMERICAL INPUT ///////////////////////////
 ///////////////////////////////////////////////////////////////
 
-one.addEventListener("click", function () {
+function getButtonValue(number) {
   if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 1;
-  } else displayStrip.innerHTML += 1;
+    displayStrip.innerHTML = number;
+  } else displayStrip.innerHTML += number;
+}
+
+one.addEventListener("click", function () {
+  getButtonValue(1);
 });
 two.addEventListener("click", function () {
-  if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 2;
-  } else displayStrip.innerHTML += 2;
+  getButtonValue(2);
 });
 three.addEventListener("click", function () {
-  if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 3;
-  } else displayStrip.innerHTML += 3;
+  getButtonValue(3);
 });
 four.addEventListener("click", function () {
-  if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 4;
-  } else displayStrip.innerHTML += 4;
+  getButtonValue(4);
 });
 five.addEventListener("click", function () {
-  if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 5;
-  } else displayStrip.innerHTML += 5;
+  getButtonValue(5);
 });
 six.addEventListener("click", function () {
-  if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 6;
-  } else displayStrip.innerHTML += 6;
+  getButtonValue(6);
 });
 seven.addEventListener("click", function () {
-  if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 7;
-  } else displayStrip.innerHTML += 7;
+  getButtonValue(7);
 });
 eight.addEventListener("click", function () {
-  if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 8;
-  } else displayStrip.innerHTML += 8;
+  getButtonValue(8);
 });
 nine.addEventListener("click", function () {
-  if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 9;
-  } else displayStrip.innerHTML += 9;
+  getButtonValue(9);
 });
 zero.addEventListener("click", function () {
-  if (displayStrip.innerHTML === "0") {
-    displayStrip.innerHTML = 0;
-  } else displayStrip.innerHTML += 0;
+  getButtonValue(0);
 });
 decimal.addEventListener("click", function () {
   if (displayStrip.innerHTML.includes(".")) {
@@ -102,6 +92,19 @@ decimal.addEventListener("click", function () {
   } else if (displayStrip.innerHTML === 0) {
     displayStrip.innerHTML = "0.";
   } else displayStrip.innerHTML += ".";
+
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
+  // if operator is defined allow two periods
 });
 
 ///////////////////////////////////////////////////////////////
@@ -109,9 +112,10 @@ decimal.addEventListener("click", function () {
 ///////////////////////////////////////////////////////////////
 
 clear.addEventListener("click", function () {
-  // if (displayStrip.innerHTML == 0) {  // USE FOR BACKSPACE BUTTON //
   displayStrip.innerHTML = 0;
-  // } else displayStrip.innerHTML = displayStrip.innerHTML.slice(0, -1);//for backspace//
+  firstInputValue = "";
+  secondInputValue = "";
+  operator = "";
 });
 
 changePositive.addEventListener("click", function () {
@@ -125,39 +129,66 @@ memory.addEventListener("click", function () {
 });
 
 divide.addEventListener("click", function () {
+  checkForOperator();
   operator = "divide";
-  firstInputValue = parseInt(displayStrip.innerHTML);
+  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} / `;
 });
-
 multiply.addEventListener("click", function () {
+  checkForOperator();
   operator = "multiply";
-  firstInputValue = parseInt(displayStrip.innerHTML);
+  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} X `;
 });
-
 subtract.addEventListener("click", function () {
+  checkForOperator();
   operator = "subtract";
-  firstInputValue = parseInt(displayStrip.innerHTML);
+  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} - `;
 });
-
 add.addEventListener("click", function () {
+  checkForOperator();
   operator = "add";
-  firstInputValue = parseInt(displayStrip.innerHTML);
+  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} + `;
 });
-
 exponent.addEventListener("click", function () {
+  checkForOperator();
   operator = "exponent";
-  firstInputValue = parseInt(displayStrip.innerHTML);
+  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} ^ `;
 });
 
 enterButton.addEventListener("click", function () {
-  secondInputValueString = displayStrip.innerHTML.split(" ").pop();
-  secondInputValue = parseInt(secondInputValueString);
-  if (firstInputValue === undefined || operator === undefined) {
+  secondInputValue = displayStrip.innerHTML.split(" ").pop();
+  if (firstInputValue === "" || operator === "" || secondInputValue === "") {
     displayStrip.innerHTML = "DECLINED";
-  } else displayStrip.innerHTML = operate(firstInputValue, operator, secondInputValue);
+  } else preRoundedValue = operate(firstInputValue, operator, secondInputValue);
+  displayStrip.innerHTML = roundDecimal(preRoundedValue);
 });
+
+///////////////////////////////////////////////////////////////
+/////////////// CHECK FOR MULTIPLE OPERATORS //////////////////
+///////////////////////////////////////////////////////////////
+
+function checkForOperator() {
+  if (operator !== "") {
+    secondInputValue = displayStrip.innerHTML.split(" ").pop();
+    let newValue = operate(firstInputValue, operator, secondInputValue);
+    operate();
+    displayStrip.innerHTML = newValue;
+    operator = "";
+    firstInputValue = newValue;
+    console.log(firstInputValue);
+  }
+}
+
+///////////////////////////////////////////////////////////////
+/////// FUNCTION TO ROUND ANSWERS TO 5 DECIMAL POINTS /////////
+///////////////////////////////////////////////////////////////
+
+function roundDecimal(inputNumber) {
+  if (Number.isInteger(inputNumber)) {
+    return inputNumber;
+  } else return Number(inputNumber.toFixed(5));
+}
