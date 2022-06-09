@@ -41,7 +41,7 @@ body {
     text-align: center;
     font-weight: 100;
     font-size: 10pt;
-    text-shadow: 0.1px 0.1px #6aa58c;
+    text-shadow: 0.2px 0.2px #6aa58c;
     font-family: Arial, Helvetica, sans-serif;
     border: 5px solid #629F86;
     background-color: #68a78c;
@@ -52,6 +52,9 @@ body {
 .operator:hover, .number:hover {
     background-color: #74ae95;
     font-size: 10.1pt;
+    height: 107%;
+    width: 107%;
+    box-shadow: 1.5px 1.5px 0.1px #636364;
 }
 
 .operator {
@@ -61,32 +64,56 @@ body {
 
 #enterButton{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: bolder;
-    font-style: italic;
-    font-size: 15pt;
+    font-size: 30pt;
     color: rgba(255, 255, 255, 0.917);
     background-color: #016FD0;
-    text-align: left;
+    text-align: center;
     border-radius: 2px;
-    box-shadow: 2px 2px 2px black;
-    text-shadow: 1px 1px 1px black;
-    height: 50px;
-    width: 50px;
+    box-shadow: 1.5px 1.5px 1px black;
+    text-shadow: 1.5px 1.5px 1px black;
+    height: 60px;
+    width: 60px;
+    animation: glowingEnter 1s infinite alternate;
 }
 
+@keyframes glowingEnter {
+    from {
+        color: rgba(255, 255, 255, 0.917);
+        background-color: #016FD0;
+    }
+  
+    to {
+        color: rgba(255, 255, 255, 0.762);
+        background-color: #0b73cd;
+    }
+  }
+
 #enterButton:hover {
-    background-color: #147ad4;
-    font-size: 15.5pt;
+    background-color: #1376cd;
+    font-size: 33pt;
 }
 
 #display {
     width:100%;
     height:40px;
-    background-color:#555557;
     text-align:center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-style: italic;
     color: #00a935;
     font-size: 20pt;
-    text-shadow: 0.5px 0.5px 0.5px black;
+    animation: glow 0.9s infinite alternate;
 }
+
+@keyframes glow {
+    from {
+      text-shadow: 1.5px 1.5px 1px black;
+      background-color: #555557;
+      color: #049e34;
+    }
+  
+    to {
+      text-shadow: 1.8px 1.8px 1px black;
+      background-color: #575758;
+      color: #16bc4a;
+    }
+  }

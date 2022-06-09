@@ -8,7 +8,7 @@ let secondInputValue = "";
 let operator = "";
 
 let displayStrip = document.createElement("div");
-displayStrip.innerHTML = 0;
+displayStrip.innerHTML = "OH, HELLO...";
 document.getElementById("display").appendChild(displayStrip);
 
 const allClear = document.getElementById("allClear");
@@ -31,11 +31,6 @@ const zero = document.getElementById("zero");
 const decimal = document.getElementById("decimal");
 const exponent = document.getElementById("exponent");
 const add = document.getElementById("add");
-
-allClear.addEventListener("click", function () {
-  memoryValue = 0;
-  clear();
-});
 
 ///////////////////////////////////////////////////////////////
 /////////////// CALCULATOR MATH OPERATIONS ////////////////////
@@ -128,45 +123,38 @@ clearBtn.addEventListener("click", function () {
 });
 
 changePositive.addEventListener("click", function () {
+  checkForScreenText();
   changePositveNegative();
 });
 
 memory.addEventListener("click", function () {
-  if (displayStrip.innerHTML == 0) {
-    displayStrip.innerHTML = Number(memoryValue);
-  } else if (memoryValue != 0) {
-    displayStrip.innerHTML += Number(memoryValue);
-  } else memoryValue = Number(displayStrip.innerHTML);
+  useMemoryButton();
 });
 
 divide.addEventListener("click", function () {
-  checkForOperator();
+  selectOperator();
   operator = "divide";
-  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} / `;
+  // checkForScreenText();
 });
 multiply.addEventListener("click", function () {
-  checkForOperator();
+  selectOperator();
   operator = "multiply";
-  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} X `;
 });
 subtract.addEventListener("click", function () {
-  checkForOperator();
+  selectOperator();
   operator = "subtract";
-  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} - `;
 });
 add.addEventListener("click", function () {
-  checkForOperator();
+  selectOperator();
   operator = "add";
-  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} + `;
 });
 exponent.addEventListener("click", function () {
-  checkForOperator();
+  selectOperator();
   operator = "exponent";
-  firstInputValue = displayStrip.innerHTML;
   displayStrip.innerHTML = `${displayStrip.innerHTML} ^ `;
 });
 
@@ -177,7 +165,6 @@ exponent.addEventListener("click", function () {
 enterButton.addEventListener("click", function () {
   secondInputValue = displayStrip.innerHTML.split(" ").pop();
   if (firstInputValue === "" || operator === "" || secondInputValue === "") {
-    displayStrip.innerHTML = "DECLINED";
     return;
   } else {
     const res = operate(firstInputValue, operator, secondInputValue);
@@ -197,16 +184,13 @@ enterButton.addEventListener("click", function () {
 ///////////////////////////////////////////////////////////////
 
 function checkForOperator() {
-  if (operator !== "") {
+  if (operator) {
     secondInputValue = displayStrip.innerHTML.split(" ").pop();
     let newValue = operate(firstInputValue, operator, secondInputValue);
-    if (newValue === null) {
-      displayStrip.innerHTML = "DECLINED";
-    } else {
+    if (newValue) {
       displayStrip.innerHTML = newValue;
     }
     firstInputValue = newValue;
-    console.log(firstInputValue);
   }
 }
 
@@ -228,21 +212,16 @@ function checkForScreenText() {
   if (
     displayStrip.innerHTML === "DECLINED" ||
     displayStrip.innerHTML === "NaN" ||
-    displayStrip.innerHTML === "Infinity"
+    displayStrip.innerHTML === "Infinity" ||
+    displayStrip.innerHTML === "OH, HELLO..."
   ) {
     clear();
   }
 }
 
 ///////////////////////////////////////////////////////////////
-///////////// CHECK FOR DOUBLE OPERATOR  //////////////////////
+////////////// CLEAR INPUT VALUES /////////////////////////////
 ///////////////////////////////////////////////////////////////
-
-function operatorCheck() {
-  if (operator != "") {
-    displayStrip.innerHTML = "DECLINED";
-  }
-}
 
 function clear() {
   displayStrip.innerHTML = "0";
@@ -250,6 +229,12 @@ function clear() {
   secondInputValue = "";
   operator = "";
 }
+
+allClear.addEventListener("click", function () {
+  memoryValue = 0;
+  clear();
+  displayStrip.innerHTML = "OH, HELLO...";
+});
 
 ///////////////////////////////////////////////////////////////
 ///////////// FLIP POSITIVE TO NEGATIVE  //////////////////////
@@ -282,4 +267,38 @@ function addDecimal() {
   } else if (displayStrip.innerHTML === 0) {
     displayStrip.innerHTML = "0.";
   } else displayStrip.innerHTML += ".";
+}
+
+///////////////////////////////////////////////////////////////
+///////////////// SELECT OPERATOR /////////////////////////////
+///////////////////////////////////////////////////////////////
+
+function selectOperator() {
+  checkForScreenText();
+  checkForOperator();
+  firstInputValue = displayStrip.innerHTML;
+}
+
+///////////////////////////////////////////////////////////////
+////////////////  USE MEMORY BUTTON  //////////////////////////
+///////////////////////////////////////////////////////////////
+
+function useMemoryButton() {
+  checkForScreenText();
+  if (displayStrip.innerHTML == 0) {
+    displayStrip.innerHTML = Number(memoryValue);
+  } else if (memoryValue != 0) {
+    displayStrip.innerHTML += Number(memoryValue);
+  } else memoryValue = Number(displayStrip.innerHTML);
+}
+
+///////////////////////////////////////////////////////////////
+////////// CHECK FOR BACK - TO - BACK OPERATORS  //////////////
+///////////////////////////////////////////////////////////////
+
+function checkForDeclined() {
+  if (typeof displayStrip.innerHTML != "number") {
+    clear();
+    console.log("yep");
+  }
 }
