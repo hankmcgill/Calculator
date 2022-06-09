@@ -130,7 +130,7 @@ clear.addEventListener("click", function () {
 });
 
 changePositive.addEventListener("click", function () {
-  displayStrip.innerHTML = displayStrip.innerHTML * -1;
+  changePositveNegative();
 });
 
 memory.addEventListener("click", function () {
@@ -246,4 +246,16 @@ function checkForDivideByZero() {
     displayStrip.innerHTML = "DECLINED";
   }
   console.log(firstInputValue, operator, secondInputValue);
+}
+
+///////////////////////////////////////////////////////////////
+///////////// FLIP POSITIVE TO NEGATIVE  //////////////////////
+///////////////////////////////////////////////////////////////
+
+function changePositveNegative() {
+  if (operator !== "") {
+    modifiedValue = displayStrip.innerHTML.split(" ").pop() * -1;
+    displayStrip.innerHTML =
+      displayStrip.innerHTML.slice(0, -1) + modifiedValue;
+  } else displayStrip.innerHTML = displayStrip.innerHTML * -1;
 }
