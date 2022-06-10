@@ -1,5 +1,5 @@
 body {
-    background-color: #97C6B1;
+    background-color: #1c5c3f;
 }
 
 #card {
@@ -37,7 +37,7 @@ body {
     width: 160px;
 }
 
-.operator, .number {
+.operator, .number, .decimalPoint {
     text-align: center;
     font-weight: 100;
     font-size: 10pt;
@@ -49,11 +49,9 @@ body {
     box-shadow: 1px 1px 0.1px #636364;
 }
 
-.operator:hover, .number:hover {
+.operator:hover, .number:hover, .decimalPoint:hover {
     background-color: #74ae95;
     font-size: 10.1pt;
-    height: 107%;
-    width: 107%;
     box-shadow: 1.5px 1.5px 0.1px #636364;
 }
 
@@ -107,13 +105,13 @@ body {
 @keyframes glow {
     from {
       text-shadow: 1.5px 1.5px 1px black;
-      background-color: #555557;
-      color: #049e34;
+      background-color: #404042;
+      color: #14dd54;
     }
   
     to {
       text-shadow: 1.8px 1.8px 1px black;
-      background-color: #575758;
-      color: #16bc4a;
+      background-color: #2f2f31f5;
+      color: #119a3c;
     }
   }
