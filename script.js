@@ -31,6 +31,7 @@ const zero = document.getElementById("zero");
 const decimal = document.getElementById("decimal");
 const exponent = document.getElementById("exponent");
 const add = document.getElementById("add");
+const enterButton = document.getElementById("enterButton");
 
 ///////////////////////////////////////////////////////////////
 //////// CHECK FOR ERROR TEXT OR OVERFLOW ONSCREEN  ///////////
@@ -54,7 +55,7 @@ function roundDecimal(inputNumber) {
 }
 
 ///////////////////////////////////////////////////////////////
-////////// CALCULATOR MATH OPERATIONS + FUNCTIONS /////////////
+/////////// CALCULATOR OPERATION FUNCTIONS ////////////////////
 ///////////////////////////////////////////////////////////////
 
 function operate(firstInputValue, operator, secondInputValue) {
@@ -126,6 +127,58 @@ function changePositveNegative() {
   } else displayStrip.innerHTML = displayStrip.innerHTML * -1;
 }
 
+function clear() {
+  displayStrip.innerHTML = "0";
+  firstInputValue = "";
+  secondInputValue = "";
+  operator = "";
+}
+
+function pressAllClearButton() {
+  memoryValue = 0;
+  clear();
+  displayStrip.innerHTML = "OH, HELLO...";
+}
+
+function useMemoryButton() {
+  checkForScreenText();
+  if (displayStrip.innerHTML == 0) {
+    displayStrip.innerHTML = Number(memoryValue);
+  } else if (memoryValue != 0) {
+    displayStrip.innerHTML += Number(memoryValue);
+  } else memoryValue = Number(displayStrip.innerHTML);
+}
+
+function pressEnterButton() {
+  secondInputValue = displayStrip.innerHTML.split(" ").pop();
+  if (firstInputValue === "" || operator === "" || secondInputValue === "") {
+    return;
+  } else {
+    const res = operate(firstInputValue, operator, secondInputValue);
+    if (res === null) {
+      displayStrip.innerHTML = "DECLINED";
+    } else {
+      displayStrip.innerHTML = roundDecimal(res);
+    }
+  }
+  firstInputValue = "";
+  secondInputValue = "";
+  operator = "";
+}
+
+function selectOperator() {
+  checkForScreenText();
+  if (operator) {
+    secondInputValue = displayStrip.innerHTML.split(" ").pop();
+    let newValue = operate(firstInputValue, operator, secondInputValue);
+    if (newValue) {
+      displayStrip.innerHTML = newValue;
+    }
+    firstInputValue = newValue;
+  }
+  firstInputValue = displayStrip.innerHTML;
+}
+
 ///////////////////////////////////////////////////////////////
 /////////////// GET NUMERICAL INPUT ///////////////////////////
 ///////////////////////////////////////////////////////////////
@@ -145,6 +198,10 @@ numberButtons.forEach(function (button) {
 });
 
 decimal.addEventListener("click", function () {
+  getDecimal();
+});
+
+function getDecimal() {
   let tempSecondValue;
   checkForScreenText();
   if (operator) {
@@ -163,7 +220,7 @@ decimal.addEventListener("click", function () {
   } else {
     displayStrip.innerHTML += ".";
   }
-});
+}
 
 ///////////////////////////////////////////////////////////////
 /////////////// GET OPERATOR INPUT ////////////////////////////
@@ -172,15 +229,12 @@ decimal.addEventListener("click", function () {
 clearBtn.addEventListener("click", function () {
   clear();
 });
-
 changePositive.addEventListener("click", function () {
   invertValuePolarity();
 });
-
 memory.addEventListener("click", function () {
   useMemoryButton();
 });
-
 divide.addEventListener("click", function () {
   divideValues();
 });
@@ -196,78 +250,48 @@ add.addEventListener("click", function () {
 exponent.addEventListener("click", function () {
   exponentializeValues();
 });
-
-///////////////////////////////////////////////////////////////
-/////////////// USE "ENTER" BUTTON TO GET RESULTS//////////////
-///////////////////////////////////////////////////////////////
-
-enterButton.addEventListener("click", function () {
-  secondInputValue = displayStrip.innerHTML.split(" ").pop();
-  if (firstInputValue === "" || operator === "" || secondInputValue === "") {
-    return;
-  } else {
-    const res = operate(firstInputValue, operator, secondInputValue);
-    if (res === null) {
-      displayStrip.innerHTML = "DECLINED";
-    } else {
-      displayStrip.innerHTML = roundDecimal(res);
-    }
-  }
-  firstInputValue = "";
-  secondInputValue = "";
-  operator = "";
-});
-
-///////////////////////////////////////////////////////////////
-/////////////// CHECK FOR MULTIPLE OPERATORS //////////////////
-///////////////////////////////////////////////////////////////
-
-function checkForOperator() {
-  if (operator) {
-    secondInputValue = displayStrip.innerHTML.split(" ").pop();
-    let newValue = operate(firstInputValue, operator, secondInputValue);
-    if (newValue) {
-      displayStrip.innerHTML = newValue;
-    }
-    firstInputValue = newValue;
-  }
-}
-
-///////////////////////////////////////////////////////////////
-///////////////// SELECT OPERATOR /////////////////////////////
-///////////////////////////////////////////////////////////////
-
-function selectOperator() {
-  checkForScreenText();
-  checkForOperator();
-  firstInputValue = displayStrip.innerHTML;
-}
-///////////////////////////////////////////////////////////////
-////////////// CLEAR INPUT VALUES /////////////////////////////
-///////////////////////////////////////////////////////////////
-
-function clear() {
-  displayStrip.innerHTML = "0";
-  firstInputValue = "";
-  secondInputValue = "";
-  operator = "";
-}
-
 allClear.addEventListener("click", function () {
-  memoryValue = 0;
-  clear();
-  displayStrip.innerHTML = "OH, HELLO...";
+  pressAllClearButton();
+});
+enterButton.addEventListener("click", function () {
+  pressEnterButton();
 });
 
-///////////////////////////////////////////////////////////////
-////////////////  USE MEMORY BUTTON  //////////////////////////
-///////////////////////////////////////////////////////////////
-
-function useMemoryButton() {
-  checkForScreenText();
-  if (displayStrip.innerHTML == 0) {
-    displayStrip.innerHTML = Number(memoryValue);
-  } else if (memoryValue != 0) {
-    displayStrip.innerHTML += Number(memoryValue);
-  } else memoryValue = Number(displayStrip.innerHTML);
-}
+document.addEventListener("keydown", function (event) {
+  if (Number(event.key)) {
+    numberAsInput(Number(event.key));
+  }
+  if (event.key === ".") {
+    getDecimal();
+  }
+  if (event.key === "Enter" || event.key === "=") {
+    pressEnterButton();
+  }
+  if (event.key === "Backspace" || event.key === "c") {
+    clear();
+  }
+  if (event.key === "^") {
+    exponentializeValues();
+  }
+  if (event.key === "+") {
+    addValues();
+  }
+  if (event.key === "-") {
+    subtractValues();
+  }
+  if (event.key === "*" || event.key === "x") {
+    multiplyValues();
+  }
+  if (event.key === "/") {
+    divideValues();
+  }
+  if (event.key === "m") {
+    useMemoryButton();
+  }
+  if (event.key === "a") {
+    pressAllClearButton();
+  }
+  if (event.key === "!") {
+    invertValuePolarity();
+  }
+});
