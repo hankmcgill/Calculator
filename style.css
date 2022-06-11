@@ -50,8 +50,7 @@ body {
 }
 
 .operator:hover, .number:hover, .decimalPoint:hover {
-    background-color: #74ae95;
-    font-size: 10.1pt;
+    background-color: #8bbca7;
     box-shadow: 1.5px 1.5px 0.1px #636364;
 }
 
@@ -87,8 +86,7 @@ body {
   }
 
 #enterButton:hover {
-    background-color: #1376cd;
-    font-size: 33pt;
+    background-color: #68a8df;
 }
 
 #display {
