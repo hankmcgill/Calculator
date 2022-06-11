@@ -7,7 +7,6 @@ let firstInputValue = "";
 let secondInputValue = "";
 let operator = "";
 
-const displayStripMaxLength = 18;
 let displayStrip = document.createElement("div");
 displayStrip.innerHTML = "OH, HELLO...";
 document.getElementById("display").appendChild(displayStrip);
@@ -46,10 +45,9 @@ numberButtons.forEach(function (button) {
 //////// CHECK FOR ERROR TEXT OR OVERFLOW ONSCREEN  ///////////
 ///////////////////////////////////////////////////////////////
 
+const displayStripMaxLength = 18;
+
 function checkForScreenText() {
-  // if (displayStrip.innerHTML.length > 18) {
-  //   clear();
-  // }
   if (
     displayStrip.innerHTML === "DECLINED" ||
     displayStrip.innerHTML === "NaN" ||
@@ -64,6 +62,12 @@ function roundDecimal(inputNumber) {
   if (Number.isInteger(inputNumber)) {
     return inputNumber;
   } else return Number(inputNumber.toFixed(5));
+}
+
+function roundDecimalOptionTwo(inputNumber) {
+  if (Number.isInteger(inputNumber)) {
+    return inputNumber;
+  } else return Number(inputNumber.toFixed(10));
 }
 
 ///////////////////////////////////////////////////////////////
@@ -208,7 +212,9 @@ function selectOperator() {
       displayStrip.innerHTML = `${firstInputValue}`;
       return;
     }
-    let newValue = operate(firstInputValue, operator, secondInputValue);
+    let newValue = roundDecimalOptionTwo(
+      operate(firstInputValue, operator, secondInputValue)
+    );
     if (newValue === 0) {
       displayStrip.innerHTML = 0;
     }
@@ -232,7 +238,9 @@ function numberAsInput(number) {
 }
 
 decimal.addEventListener("click", function () {
-  getDecimal();
+  if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+    getDecimal();
+  }
 });
 
 function getDecimal() {
@@ -264,25 +272,37 @@ clearBtn.addEventListener("click", function () {
   clear();
 });
 changePositive.addEventListener("click", function () {
-  invertValuePolarity();
+  if (displayStrip.innerHTML.length < displayStripMaxLength + 1) {
+    invertValuePolarity();
+  }
 });
 memory.addEventListener("click", function () {
   useMemoryButton();
 });
 divide.addEventListener("click", function () {
-  divideValues();
+  if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+    divideValues();
+  }
 });
 multiply.addEventListener("click", function () {
-  multiplyValues();
+  if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+    multiplyValues();
+  }
 });
 subtract.addEventListener("click", function () {
-  subtractValues();
+  if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+    subtractValues();
+  }
 });
 add.addEventListener("click", function () {
-  addValues();
+  if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+    addValues();
+  }
 });
 exponent.addEventListener("click", function () {
-  exponentializeValues();
+  if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+    exponentializeValues();
+  }
 });
 allClear.addEventListener("click", function () {
   pressAllClearButton();
@@ -293,15 +313,20 @@ enterButton.addEventListener("click", function () {
 
 document.addEventListener("keydown", function (event) {
   if (Number(event.key)) {
+    console.log(event.key);
     if (displayStrip.innerHTML.length < displayStripMaxLength) {
-      numberAsInput(button.innerHTML);
+      numberAsInput(event.key);
     }
   }
   if (event.key === "0") {
-    numberAsInput(0);
+    if (displayStrip.innerHTML.length < displayStripMaxLength) {
+      numberAsInput(0);
+    }
   }
   if (event.key === ".") {
-    getDecimal();
+    if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+      getDecimal();
+    }
   }
   if (event.key === "Enter" || event.key === "=") {
     pressEnterButton();
@@ -314,19 +339,29 @@ document.addEventListener("keydown", function (event) {
     clear();
   }
   if (event.key === "^") {
-    exponentializeValues();
+    if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+      exponentializeValues();
+    }
   }
   if (event.key === "+") {
-    addValues();
+    if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+      addValues();
+    }
   }
   if (event.key === "-") {
-    subtractValues();
+    if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+      subtractValues();
+    }
   }
   if (event.key === "*" || event.key === "x") {
-    multiplyValues();
+    if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+      multiplyValues();
+    }
   }
   if (event.key === "/") {
-    divideValues();
+    if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
+      divideValues();
+    }
   }
   if (event.key === "m") {
     useMemoryButton();
@@ -335,6 +370,8 @@ document.addEventListener("keydown", function (event) {
     pressAllClearButton();
   }
   if (event.key === "!") {
-    invertValuePolarity();
+    if (displayStrip.innerHTML.length < displayStripMaxLength + 1) {
+      invertValuePolarity();
+    }
   }
 });
