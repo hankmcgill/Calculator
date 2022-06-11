@@ -261,6 +261,9 @@ document.addEventListener("keydown", function (event) {
   if (Number(event.key)) {
     numberAsInput(Number(event.key));
   }
+  if (event.key === "0") {
+    numberAsInput(0);
+  }
   if (event.key === ".") {
     getDecimal();
   }
