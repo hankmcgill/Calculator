@@ -7,6 +7,7 @@ let firstInputValue = "";
 let secondInputValue = "";
 let operator = "";
 
+const displayStripMaxLength = 18;
 let displayStrip = document.createElement("div");
 displayStrip.innerHTML = "OH, HELLO...";
 document.getElementById("display").appendChild(displayStrip);
@@ -35,7 +36,9 @@ const enterButton = document.getElementById("enterButton");
 let numberButtons = document.querySelectorAll(".number");
 numberButtons.forEach(function (button) {
   button.addEventListener("click", function () {
-    numberAsInput(button.innerHTML);
+    if (displayStrip.innerHTML.length < displayStripMaxLength) {
+      numberAsInput(button.innerHTML);
+    }
   });
 });
 
@@ -44,6 +47,9 @@ numberButtons.forEach(function (button) {
 ///////////////////////////////////////////////////////////////
 
 function checkForScreenText() {
+  // if (displayStrip.innerHTML.length > 18) {
+  //   clear();
+  // }
   if (
     displayStrip.innerHTML === "DECLINED" ||
     displayStrip.innerHTML === "NaN" ||
@@ -134,7 +140,6 @@ const operatorTextToSymbol = (operatorAsText) => {
     case "subtract":
       return "-";
     case "exponent":
-      console.log("exponent");
       return "^";
   }
 };
@@ -145,7 +150,6 @@ function changePositveNegative() {
       ` ${operatorTextToSymbol(operator)} `
     );
     const firstInputValue = values[0];
-    console.log(values);
     const secondInputValue = values[1] * -1;
     displayStrip.innerHTML = `${firstInputValue} ${operatorTextToSymbol(
       operator
@@ -195,11 +199,19 @@ function pressEnterButton() {
 function selectOperator() {
   checkForScreenText();
   if (operator) {
-    secondInputValue = displayStrip.innerHTML.split(" ").pop();
-    // determine whether or not you should only add operator to displayStrip
-    // or if you should operate and add to displayStrip
+    const values = displayStrip.innerHTML.split(
+      ` ${operatorTextToSymbol(operator)} `
+    );
+    let firstInputValue = values[0];
+    let secondInputValue = values[1];
+    if (!secondInputValue) {
+      displayStrip.innerHTML = `${firstInputValue}`;
+      return;
+    }
     let newValue = operate(firstInputValue, operator, secondInputValue);
-    // consider if newValue is 0
+    if (newValue === 0) {
+      displayStrip.innerHTML = 0;
+    }
     if (newValue) {
       displayStrip.innerHTML = newValue;
     }
@@ -281,7 +293,9 @@ enterButton.addEventListener("click", function () {
 
 document.addEventListener("keydown", function (event) {
   if (Number(event.key)) {
-    numberAsInput(Number(event.key));
+    if (displayStrip.innerHTML.length < displayStripMaxLength) {
+      numberAsInput(button.innerHTML);
+    }
   }
   if (event.key === "0") {
     numberAsInput(0);
