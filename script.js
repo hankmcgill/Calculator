@@ -98,6 +98,35 @@ const operate = (firstInputValue, operator, secondInputValue) => {
   return calculatedResult;
 };
 
+///////// ATTEMPT AT WRITING A MODULE PATTERN ////////////////
+
+// const operate = ((firstInputValue, secondInputValue) => {
+//   const parsedNum1 = Number(firstInputValue);
+//   const parsedNum2 = Number(secondInputValue);
+//   const operateByAdding = (parsedNum1, parsedNum2) => {
+//     parsedNum1 + parsedNum2;
+//   };
+//   const operateBySubtracting = (parsedNum1, parsedNum2) => {
+//     parsedNum1 - parsedNum2;
+//   };
+//   const operateByMultiplying = (parsedNum1, parsedNum2) => {
+//     parsedNum1 * parsedNum2;
+//   };
+//   const operateByExponentiating = (parsedNum1, parsedNum2) => {
+//     parsedNum1 ** parsedNum2;
+//   };
+//   const operateByDividing = (parsedNum1, parsedNum2) => {
+//     parsedNum1 / parsedNum2;
+//   };
+//   return {
+//     operateByAdding,
+//     operateBySubtracting,
+//     operateByMultiplying,
+//     operateByExponentiating,
+//     operateByDividing,
+//   };
+// })();
+
 const divideValues = () => {
   selectOperator();
   operator = "divide";

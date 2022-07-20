@@ -1,115 +1,121 @@
 body {
-    background-color: #1c5c3f;
+  background-color: #1c5c3f;
 }
 
 #card {
-    font-size: 5pt;
-    position: absolute;
-    padding-top: 10px;
-    padding-bottom: 30px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    height: 236px;
-    width: 400px;
-    background-color: #629F86;
-    border: 5px solid rgba(255, 255, 255, 0.825);
-    border-radius: 15px;
-    box-shadow: 1px 1px 2px black;
+  font-size: 5pt;
+  position: absolute;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 236px;
+  width: 400px;
+  background-color: #629f86;
+  border: 5px solid rgba(255, 255, 255, 0.825);
+  border-radius: 15px;
+  box-shadow: 1px 1px 2px black;
 }
 
 #buttons {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: space-around;
-    gap: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-around;
+  gap: 30px;
 }
 
 #input-field {
-    padding-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    background-color: #629F86;
-    gap: 8px;
-    height: 160px;
-    width: 160px;
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  background-color: #629f86;
+  gap: 8px;
+  height: 160px;
+  width: 160px;
 }
 
-.operator, .number, .decimalPoint {
-    text-align: center;
-    font-weight: 100;
-    font-size: 10pt;
-    text-shadow: 0.2px 0.2px #6aa58c;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 5px solid #629F86;
-    background-color: #68a78c;
-    border-radius: 9px;
-    box-shadow: 1px 1px 0.1px #636364;
+.operator,
+.number,
+.decimalPoint {
+  text-align: center;
+  font-weight: 100;
+  font-size: 10pt;
+  text-shadow: 0.2px 0.2px #6aa58c;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 5px solid #629f86;
+  background-color: #68a78c;
+  border-radius: 9px;
+  box-shadow: 1px 1px 0.1px #636364;
 }
 
-.operator:hover, .number:hover, .decimalPoint:hover {
-    background-color: #8bbca7;
-    box-shadow: 1.5px 1.5px 0.1px #636364;
+.operator:hover,
+.number:hover,
+.decimalPoint:hover {
+  background-color: #8bbca7;
+  box-shadow: 1.5px 1.5px 0.1px #636364;
 }
 
 .operator {
-    background-color: #8ebda8;
-    color: rgb(34, 34, 34);
+  background-color: #8ebda8;
+  color: rgb(34, 34, 34);
 }
 
-#enterButton{
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 30pt;
-    color: rgba(255, 255, 255, 0.917);
-    background-color: #016FD0;
-    text-align: center;
-    border-radius: 2px;
-    box-shadow: 1.5px 1.5px 1px black;
-    text-shadow: 1.5px 1.5px 1px black;
-    height: 60px;
-    width: 60px;
-    animation: glowingEnter 1s infinite alternate;
+#enterButton {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 30pt;
+  color: rgba(255, 255, 255, 0.917);
+  background-color: #016fd0;
+  text-align: center;
+  border-radius: 2px;
+  box-shadow: 1.5px 1.5px 1px black;
+  text-shadow: 1.5px 1.5px 1px black;
+  height: 60px;
+  width: 60px;
+  animation: glowingEnter 1s infinite alternate;
 }
 
 @keyframes glowingEnter {
-    from {
-        color: rgba(255, 255, 255, 0.917);
-        background-color: #016FD0;
-    }
-  
-    to {
-        color: rgba(255, 255, 255, 0.762);
-        background-color: #0b73cd;
-    }
+  from {
+    color: rgba(255, 255, 255, 0.917);
+    background-color: #016fd0;
   }
 
+  to {
+    color: rgba(255, 255, 255, 0.762);
+    background-color: #0b73cd;
+  }
+}
+
 #enterButton:hover {
-    background-color: #68a8df;
+  background-color: #68a8df;
 }
 
 #display {
-    width:100%;
-    height:40px;
-    text-align:center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-style: italic;
-    color: #00a935;
-    font-size: 20pt;
-    animation: glow 0.9s infinite alternate;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-style: italic;
+  color: #00a935;
+  font-size: 20pt;
+  animation: glow 0.9s infinite alternate;
 }
 
 @keyframes glow {
-    from {
-      text-shadow: 1.5px 1.5px 1px black;
-      background-color: #404042;
-      color: #14dd54;
-    }
-  
-    to {
-      text-shadow: 1.8px 1.8px 1px black;
-      background-color: #2f2f31f5;
-      color: #119a3c;
-    }
+  from {
+    text-shadow: 1.5px 1.5px 1px black;
+    background-color: #404042;
+    color: #14dd54;
   }
+
+  to {
+    text-shadow: 1.8px 1.8px 1px black;
+    background-color: #2f2f31f5;
+    color: #119a3c;
+  }
+}
