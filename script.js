@@ -47,7 +47,7 @@ numberButtons.forEach(function (button) {
 
 const displayStripMaxLength = 18;
 
-function checkForScreenText() {
+const checkForScreenText = () => {
   if (
     displayStrip.innerHTML === "DECLINED" ||
     displayStrip.innerHTML === "NaN" ||
@@ -56,25 +56,25 @@ function checkForScreenText() {
   ) {
     clear();
   }
-}
+};
 
-function roundDecimal(inputNumber) {
+const roundDecimal = (inputNumber) => {
   if (Number.isInteger(inputNumber)) {
     return inputNumber;
   } else return Number(inputNumber.toFixed(5));
-}
+};
 
-function roundDecimalOptionTwo(inputNumber) {
+const roundDecimalOptionTwo = (inputNumber) => {
   if (Number.isInteger(inputNumber)) {
     return inputNumber;
   } else return Number(inputNumber.toFixed(10));
-}
+};
 
 ///////////////////////////////////////////////////////////////
 /////////// CALCULATOR OPERATION FUNCTIONS ////////////////////
 ///////////////////////////////////////////////////////////////
 
-function operate(firstInputValue, operator, secondInputValue) {
+const operate = (firstInputValue, operator, secondInputValue) => {
   const parsedNum1 = Number(firstInputValue);
   const parsedNum2 = Number(secondInputValue);
 
@@ -96,42 +96,42 @@ function operate(firstInputValue, operator, secondInputValue) {
     } else calculatedResult = parsedNum1 / parsedNum2;
   }
   return calculatedResult;
-}
+};
 
-function divideValues() {
+const divideValues = () => {
   selectOperator();
   operator = "divide";
   displayStrip.innerHTML = `${displayStrip.innerHTML} / `;
-}
+};
 
-function multiplyValues() {
+const multiplyValues = () => {
   selectOperator();
   operator = "multiply";
   displayStrip.innerHTML = `${displayStrip.innerHTML} X `;
-}
+};
 
-function subtractValues() {
+const subtractValues = () => {
   selectOperator();
   operator = "subtract";
   displayStrip.innerHTML = `${displayStrip.innerHTML} - `;
-}
+};
 
-function addValues() {
+const addValues = () => {
   selectOperator();
   operator = "add";
   displayStrip.innerHTML = `${displayStrip.innerHTML} + `;
-}
+};
 
-function exponentializeValues() {
+const exponentializeValues = () => {
   selectOperator();
   operator = "exponent";
   displayStrip.innerHTML = `${displayStrip.innerHTML} ^ `;
-}
+};
 
-function invertValuePolarity() {
+const invertValuePolarity = () => {
   checkForScreenText();
   changePositveNegative();
-}
+};
 
 const operatorTextToSymbol = (operatorAsText) => {
   switch (operatorAsText) {
@@ -148,7 +148,7 @@ const operatorTextToSymbol = (operatorAsText) => {
   }
 };
 
-function changePositveNegative() {
+const changePositveNegative = () => {
   if (operator) {
     const values = displayStrip.innerHTML.split(
       ` ${operatorTextToSymbol(operator)} `
@@ -159,31 +159,31 @@ function changePositveNegative() {
       operator
     )} ${secondInputValue}`;
   } else displayStrip.innerHTML = displayStrip.innerHTML * -1;
-}
+};
 
-function clear() {
+const clear = () => {
   displayStrip.innerHTML = "0";
   firstInputValue = "";
   secondInputValue = "";
   operator = "";
-}
+};
 
-function pressAllClearButton() {
+const pressAllClearButton = () => {
   memoryValue = 0;
   clear();
   displayStrip.innerHTML = "OH, HELLO...";
-}
+};
 
-function useMemoryButton() {
+const useMemoryButton = () => {
   checkForScreenText();
   if (displayStrip.innerHTML == 0) {
     displayStrip.innerHTML = Number(memoryValue);
   } else if (memoryValue != 0) {
     displayStrip.innerHTML += Number(memoryValue);
   } else memoryValue = Number(displayStrip.innerHTML);
-}
+};
 
-function pressEnterButton() {
+const pressEnterButton = () => {
   secondInputValue = displayStrip.innerHTML.split(" ").pop();
   if (firstInputValue === "" || operator === "" || secondInputValue === "") {
     return;
@@ -198,9 +198,9 @@ function pressEnterButton() {
   firstInputValue = "";
   secondInputValue = "";
   operator = "";
-}
+};
 
-function selectOperator() {
+const selectOperator = () => {
   checkForScreenText();
   if (operator) {
     const values = displayStrip.innerHTML.split(
@@ -224,18 +224,18 @@ function selectOperator() {
     firstInputValue = newValue;
   }
   firstInputValue = displayStrip.innerHTML;
-}
+};
 
 ///////////////////////////////////////////////////////////////
 /////////////// GET NUMERICAL INPUT ///////////////////////////
 ///////////////////////////////////////////////////////////////
 
-function numberAsInput(number) {
+const numberAsInput = (number) => {
   checkForScreenText();
   if (displayStrip.innerHTML === "0") {
     displayStrip.innerHTML = number;
   } else displayStrip.innerHTML += number;
-}
+};
 
 decimal.addEventListener("click", function () {
   if (displayStrip.innerHTML.length < displayStripMaxLength - 1) {
@@ -243,7 +243,7 @@ decimal.addEventListener("click", function () {
   }
 });
 
-function getDecimal() {
+const getDecimal = () => {
   let tempSecondValue;
   checkForScreenText();
   if (operator) {
@@ -262,7 +262,7 @@ function getDecimal() {
   } else {
     displayStrip.innerHTML += ".";
   }
-}
+};
 
 ///////////////////////////////////////////////////////////////
 /////////////// GET OPERATOR INPUT ////////////////////////////
